@@ -1,0 +1,124 @@
+{
+  "users": [
+    {
+      "id": "1748307511382",
+      "username": "Test User",
+      "email": "nnn@gmail.com",
+      "password": "nnn"
+    },
+    {
+      "id": "1748308036688",
+      "username": "ashu",
+      "email": "ashu@123",
+      "password": "ashu"
+    },
+    {
+      "id": "1748312076059",
+      "username": "viju",
+      "email": "viju@gmail.com",
+      "password": "viju"
+    },
+    {
+      "id": "1754697964368",
+      "username": "Nisha pandey",
+      "email": "nisha@gmail.com",
+      "password": "123456789"
+    },
+    {
+      "id": "1754741968524",
+      "username": "shyam",
+      "email": "shyam@gmail.com",
+      "password": "123456789"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1754698605978",
+      "userId": "1754697964368",
+      "userEmail": "nisha@gmail.com",
+      "userName": "Nisha pandey",
+      "items": [
+        {
+          "id": 2,
+          "name": "Jeans",
+          "image": "/src/assets/images/jens.webp",
+          "price": 60,
+          "quantity": 1,
+          "total": 60
+        }
+      ],
+      "totalAmount": 60,
+      "paymentMethod": "credit-card",
+      "orderDate": "2025-08-09T00:16:45.978Z",
+      "status": "completed"
+    },
+    {
+      "id": "1754698957209",
+      "userId": "1754697964368",
+      "userEmail": "nisha@gmail.com",
+      "userName": "Nisha pandey",
+      "items": [
+        {
+          "id": 3,
+          "name": "Saree",
+          "image": "/src/assets/images/p3.avif",
+          "price": 75,
+          "quantity": 1,
+          "total": 75
+        },
+        {
+          "id": 5,
+          "name": "T-Shirt",
+          "image": "/src/assets/images/5.avif",
+          "price": 45,
+          "quantity": 1,
+          "total": 45
+        }
+      ],
+      "totalAmount": 120,
+      "paymentMethod": "credit-card",
+      "orderDate": "2025-08-09T00:22:37.209Z",
+      "status": "completed"
+    },
+    {
+      "id": "1754699033231",
+      "userId": "1754697964368",
+      "userEmail": "nisha@gmail.com",
+      "userName": "Nisha pandey",
+      "items": [
+        {
+          "id": 3,
+          "name": "Saree",
+          "image": "/src/assets/images/p3.avif",
+          "price": 75,
+          "quantity": 1,
+          "total": 75
+        }
+      ],
+      "totalAmount": 75,
+      "paymentMethod": "credit-card",
+      "orderDate": "2025-08-09T00:23:53.231Z",
+      "status": "completed"
+    },
+    {
+      "id": "1754699268507",
+      "userId": "1754697964368",
+      "userEmail": "nisha@gmail.com",
+      "userName": "Nisha pandey",
+      "items": [
+        {
+          "id": 1,
+          "name": "Kurti",
+          "image": "/src/assets/images/p1.jfif",
+          "price": 50,
+          "quantity": 1,
+          "total": 50
+        }
+      ],
+      "totalAmount": 50,
+      "paymentMethod": "credit-card",
+      "orderDate": "2025-08-09T00:27:48.507Z",
+      "status": "completed"
+    }
+  ]
+}
