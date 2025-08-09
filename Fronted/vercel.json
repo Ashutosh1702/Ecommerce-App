@@ -33,7 +33,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!assets/)(?!.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|avif|webp|jfif)).*)",
+      "source": "/((?!assets).*)",
       "destination": "/index.html"
     }
   ]
