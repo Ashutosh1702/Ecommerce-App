@@ -8,6 +8,8 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Logo */
@@ -24,6 +26,7 @@
     font-size: 20px;
     font-weight: 700;
     background: linear-gradient(135deg, #47fdae, #2d8f47);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;

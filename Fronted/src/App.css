@@ -29,6 +29,16 @@ body {
   width: 100%;
   overflow-x: hidden;
   background: var(--lighter-green);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content wrapper to ensure proper spacing from sticky navbar */
+.main-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
 }
 
 /* Ensure all images are responsive by default */
