@@ -93,8 +93,9 @@
 .hero-hand-icon{
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 15px 0;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 10px 0;
 }
 
 .new-text {
@@ -110,6 +111,24 @@
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-10px); }
     60% { transform: translateY(-5px); }
+}
+
+.hand-icon-img {
+    height: 55px;
+    width: auto;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.hand-icon-img:hover {
+    transform: scale(1.1);
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    75% { transform: rotate(-10deg); }
 }
 .hero-buttons {
     display: flex;
@@ -413,6 +432,20 @@
         font-size: 16px;
     }
     
+    .hero-hand-icon {
+        justify-content: center;
+        gap: 12px;
+        margin: 15px 0;
+    }
+    
+    .hand-icon-img {
+        height: 45px;
+    }
+    
+    .new-text {
+        font-size: 20px;
+    }
+    
     .hero-buttons {
         justify-content: center;
         gap: 15px;
@@ -474,6 +507,19 @@
     
     .hero-description {
         font-size: 14px;
+    }
+    
+    .hero-hand-icon {
+        gap: 10px;
+        margin: 12px 0;
+    }
+    
+    .hand-icon-img {
+        height: 40px;
+    }
+    
+    .new-text {
+        font-size: 18px;
     }
     
     .hero-buttons {
