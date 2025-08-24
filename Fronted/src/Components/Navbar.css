@@ -58,19 +58,25 @@
     font-weight: 600;
     font-size: 14px;
 }
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
 .nav-login-cart img {
     height: 38px;
 }
 .nav-cart-count {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -8px;
+    right: -8px;
     background: linear-gradient(135deg, #47fdae, #2d8f47);
     color: white;
     font-size: 12px;
     padding: 3px 7px;
     border-radius: 50%;
     font-weight: bold;
+    min-width: 18px;
+    text-align: center;
 }
 
 /* Hamburger Button */

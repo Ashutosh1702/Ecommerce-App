@@ -90,12 +90,14 @@ function Navbar() {
         ) : (
           <Link to="/login"><button>Login</button></Link>
         )}
-        <Link to="/cart"><img src={cart_icon} alt="" height="40px"/></Link>
-        <div className="nav-cart-count">{(() => {
-          const count = getTotalCartItems();
-          console.log('Navbar rendering, cart count:', count);
-          return count;
-        })()}</div>
+        <div className="cart-icon-container">
+          <Link to="/cart"><img src={cart_icon} alt="" height="40px"/></Link>
+          <div className="nav-cart-count">{(() => {
+            const count = getTotalCartItems();
+            console.log('Navbar rendering, cart count:', count);
+            return count;
+          })()}</div>
+        </div>
       </div>
     </div>
   )
