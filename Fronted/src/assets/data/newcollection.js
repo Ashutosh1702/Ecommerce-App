@@ -48,7 +48,7 @@ const new_collection = [
     // Women's Collection
     {
         id: 205,
-        name: "Women's Collection 1",
+        name: "Silk Saree",
         image: women1,
         category: "women",
         old_price: 160.00,
@@ -56,7 +56,7 @@ const new_collection = [
     },
     {
         id: 206,
-        name: "Women's Collection 2",
+        name: "Anarkali Suit",
         image: women2,
         category: "women",
         old_price: 190.00,
@@ -64,7 +64,7 @@ const new_collection = [
     },
     {
         id: 207,
-        name: "Women's Collection 3",
+        name: "Embroidered Kurti",
         image: women3,
         category: "women",
         old_price: 220.00,

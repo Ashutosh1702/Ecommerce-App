@@ -86,6 +86,8 @@
     gap: 5px;
     cursor: pointer;
     z-index: 1100;
+    touch-action: manipulation; /* reduce tap delay on mobile */
+    -webkit-tap-highlight-color: transparent; /* remove blue flash */
 }
 .mobile-menu-btn span {
     height: 3px;
@@ -108,14 +110,36 @@
         padding-top: 80px;
         gap: 20px;
         box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-        transition: right 0.3s ease-in-out;
+        transition: none; /* open instantly on mobile */
         z-index: 1050;
     }
     .nav-menu.active {
         right: 0;
     }
+    /* Cleaner, simpler mobile menu items */
+    .nav-menu li {
+        padding: 14px 20px;
+        border-bottom: 1px solid #f1f5f9; /* subtle separator */
+    }
+    .nav-menu li a {
+        font-size: 18px;
+        color: #111827; /* near-black for readability */
+        font-weight: 600;
+        touch-action: manipulation; /* reduce tap delay on mobile */
+        -webkit-tap-highlight-color: transparent;
+    }
+    .nav-menu li hr { display: none; } /* hide desktop underline in mobile */
     .mobile-menu-btn {
         display: flex;
+        order: 0; /* show before logo */
+        margin-left: 0;
+        margin-right: 8px;
+    }
+    .nav-logo { 
+        order: 1; /* logo after hamburger on mobile */
+    }
+    .nav-login-cart { 
+        order: 3; 
     }
     .username {
         display: none; /* Hide for small screens */

@@ -71,7 +71,7 @@
 
 .hero-subtitle {
     color: #1e4a2e;
-    font-size: 0px;
+    font-size: 18px;
     font-weight: 400;
     margin: 0;
     letter-spacing: 1px;
@@ -93,9 +93,38 @@
 .hero-hand-icon{
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin: 20px 0;
-    padding: 10px 0;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 6px 0;
+}
+
+/* Compact "New Arrivals" pill */
+.pill-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #ffffffcc;
+    color: #14532d; /* deep green */
+    border: 1px solid rgba(45, 143, 71, 0.25);
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    backdrop-filter: blur(6px);
+}
+
+.wave-emoji {
+    display: inline-block;
+    animation: tiny-wave 2s ease-in-out infinite;
+    transform-origin: 70% 70%;
+}
+
+@keyframes tiny-wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(12deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-8deg); }
 }
 
 .new-text {

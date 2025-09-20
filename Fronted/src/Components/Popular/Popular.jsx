@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import "./Popular.css";
-import data_product from "./../../assets/data/data";
 import Item from "./../Item/Item";
+import { ShopContext } from "../Context/ShopContext";
 
 const Popular = () => {
   const [activeCategory, setActiveCategory] = useState('women');
@@ -9,208 +9,26 @@ const Popular = () => {
   const [priceFilter, setPriceFilter] = useState('all');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { all_product } = useContext(ShopContext);
 
-  // Enhanced data for men's products with confidence-building elements
-  const menProducts = [
-    {
-      id: 101,
-      name: "Men's Casual Shirt",
-      category: "men",
-      image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300&h=400&fit=crop",
-      new_price: 45.0,
-      old_price: 65.0,
-      rating: 4.8,
-      reviews: 324,
-      badge: "Best Seller",
-      confidence: "Premium Cotton | Size Guide Available"
-    },
-    {
-      id: 102,
-      name: "Denim Jacket",
-      category: "men",
-      image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&h=400&fit=crop",
-      new_price: 75.0,
-      old_price: 95.0,
-      rating: 4.6,
-      reviews: 189,
-      badge: "Trending",
-      confidence: "Durable Denim | 30-Day Return"
-    },
-    {
-      id: 103,
-      name: "Sports T-Shirt",
-      category: "men",
-      image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=400&fit=crop",
-      new_price: 25.0,
-      old_price: 40.0,
-      rating: 4.7,
-      reviews: 456,
-      badge: "Top Rated",
-      confidence: "Moisture-Wicking | Athletic Fit"
-    },
-    {
-      id: 104,
-      name: "Formal Blazer",
-      category: "men",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
-      new_price: 120.0,
-      old_price: 150.0,
-      rating: 4.9,
-      reviews: 127,
-      badge: "Premium",
-      confidence: "Tailored Fit | Professional Grade"
-    },
-    {
-      id: 105,
-      name: "Leather Boots",
-      category: "men",
-      image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=400&fit=crop",
-      new_price: 85.0,
-      old_price: 110.0,
-      rating: 4.7,
-      reviews: 203,
-      badge: "Durable",
-      confidence: "Genuine Leather | Waterproof"
-    },
-    {
-      id: 106,
-      name: "Casual Hoodie",
-      category: "men",
-      image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=300&h=400&fit=crop",
-      new_price: 55.0,
-      old_price: 75.0,
-      rating: 4.5,
-      reviews: 312,
-      badge: "Comfort",
-      confidence: "Soft Cotton Blend | Relaxed Fit"
-    }
-  ];
-
-  const kidsProducts = [
-    {
-      id: 201,
-      name: "Kids Rainbow Dress",
-      category: "kids",
-      image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=300&h=400&fit=crop",
-      new_price: 30.0,
-      old_price: 45.0,
-      rating: 4.9,
-      reviews: 278,
-      badge: "Parent's Choice",
-      confidence: "Soft Fabric | Machine Washable"
-    },
-    {
-      id: 202,
-      name: "Boys Superhero T-Shirt",
-      category: "kids",
-      image: "https://images.unsplash.com/photo-1503944168849-4d4f0b644aec?w=300&h=400&fit=crop",
-      new_price: 20.0,
-      old_price: 30.0,
-      rating: 4.8,
-      reviews: 512,
-      badge: "Kids Favorite",
-      confidence: "100% Cotton | Fade Resistant"
-    },
-    {
-      id: 203,
-      name: "Kids Denim Overalls",
-      category: "kids",
-      image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300&h=400&fit=crop",
-      new_price: 35.0,
-      old_price: 50.0,
-      rating: 4.7,
-      reviews: 156,
-      badge: "Durable",
-      confidence: "Adjustable Straps | Easy Care"
-    },
-    {
-      id: 204,
-      name: "Girls Party Dress",
-      category: "kids",
-      image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=300&h=400&fit=crop",
-      new_price: 40.0,
-      old_price: 60.0,
-      rating: 4.8,
-      reviews: 203,
-      badge: "Special Occasion",
-      confidence: "Elegant Design | Comfortable Fit"
-    },
-    {
-      id: 205,
-      name: "Kids Sneakers",
-      category: "kids",
-      image: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop",
-      new_price: 35.0,
-      old_price: 50.0,
-      rating: 4.9,
-      reviews: 445,
-      badge: "Active Kids",
-      confidence: "Non-Slip Sole | Easy Velcro"
-    },
-    {
-      id: 206,
-      name: "School Backpack",
-      category: "kids",
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=400&fit=crop",
-      new_price: 28.0,
-      old_price: 40.0,
-      rating: 4.6,
-      reviews: 178,
-      badge: "School Ready",
-      confidence: "Lightweight | Multiple Pockets"
-    }
-  ];
-
-  // Enhanced women's data with confidence elements and additional products
-  const enhancedWomenProducts = [
-    ...data_product.map((product, index) => ({
-      ...product,
-      rating: [4.8, 4.7, 4.9, 4.6][index] || 4.7,
-      reviews: [234, 189, 345, 156][index] || 200,
-      badge: ["Trending", "Best Seller", "Premium", "Top Rated"][index] || "Popular",
-      confidence: [
-        "Premium Quality | Perfect Fit",
-        "Elegant Design | Comfortable",
-        "Traditional Style | Modern Comfort",
-        "Stylish & Versatile | Quality Fabric"
-      ][index] || "Quality Assured"
-    })),
-    {
-      id: 301,
-      name: "Designer Handbag",
-      category: "women",
-      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop",
-      new_price: 89.0,
-      old_price: 120.0,
-      rating: 4.8,
-      reviews: 267,
-      badge: "Luxury",
-      confidence: "Genuine Leather | Designer Quality"
-    },
-    {
-      id: 302,
-      name: "Elegant Heels",
-      category: "women",
-      image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=400&fit=crop",
-      new_price: 65.0,
-      old_price: 85.0,
-      rating: 4.6,
-      reviews: 198,
-      badge: "Comfort",
-      confidence: "Cushioned Sole | All-Day Comfort"
-    }
-  ];
+  // Build category lists from global products to avoid ID conflicts
+  const { womenProducts, menProducts, kidsProducts } = useMemo(() => {
+    const women = all_product.filter(p => p.category === 'women');
+    const men = all_product.filter(p => p.category === 'men');
+    const kids = all_product.filter(p => p.category === 'kids');
+    return { womenProducts: women, menProducts: men, kidsProducts: kids };
+  }, [all_product]);
 
   const getProductsByCategory = () => {
     switch(activeCategory) {
       case 'women':
-        return enhancedWomenProducts;
+        return womenProducts;
       case 'men':
         return menProducts;
       case 'kids':
         return kidsProducts;
       default:
-        return enhancedWomenProducts;
+        return womenProducts;
     }
   };
 
@@ -227,9 +45,20 @@ const Popular = () => {
     }
   };
 
+  // Attach derived display fields (rating/reviews/badge) without mutating source
+  const withDerivedDisplay = (products) => {
+    return products.map((p, index) => ({
+      ...p,
+      rating: p.rating || [4.8, 4.7, 4.9, 4.6][index % 4],
+      reviews: p.reviews || [234, 189, 345, 156][index % 4],
+      badge: p.badge || ["Trending", "Best Seller", "Premium", "Top Rated"][index % 4],
+      confidence: p.confidence || "Quality Assured"
+    }));
+  };
+
   // Filter and sort products
   const applyFiltersAndSort = (products) => {
-    let filtered = [...products];
+    let filtered = withDerivedDisplay(products);
     
     // Apply price filter
     if (priceFilter !== 'all') {
@@ -277,7 +106,7 @@ const Popular = () => {
       const filtered = applyFiltersAndSort(products);
       setFilteredProducts(filtered);
       setIsLoading(false);
-    }, 300);
+    }, 200);
     
     return () => clearTimeout(timer);
   }, [activeCategory, sortBy, priceFilter]);
@@ -467,6 +296,7 @@ const Popular = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

@@ -1,7 +1,5 @@
 import React from "react";
 import "./Hero.css";
-import hand_icon from "../../assets/images/hand_icon.png";
-import arrow_icon from "../../assets/images/arrow_icon.png";
 import mens from "../../assets/images/p8.webp"
 
 const Hero = () => {
@@ -26,8 +24,7 @@ const Hero = () => {
         <h2 className="hero-subtitle">Premium Fashion • Best Prices • Latest Trends</h2>
 
         <div className="hero-hand-icon">
-          <p className="new-text">New</p>
-          <img src={hand_icon} alt="New Collection" className="hand-icon-img" />
+          <span className="pill-new">New Arrivals <span className="wave-emoji">👋</span></span>
         </div>
         
         <p className="hero-description">
@@ -36,12 +33,8 @@ const Hero = () => {
         </p>
         
         <div className="hero-buttons">
-          <div className="hero-latest-btn">
-            <span>Shop Latest Collections</span>
-          </div>
-          <div className="hero-secondary-btn">
-            <span>View Offers</span>
-          </div>
+          <button className="btn btn-primary"><span>Shop Latest Collections</span></button>
+          <button className="btn btn-ghost"><span>View Offers</span></button>
         </div>
         
         <div className="hero-stats">

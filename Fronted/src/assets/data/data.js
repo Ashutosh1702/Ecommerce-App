@@ -15,7 +15,7 @@ let data_product= [
     
         { 
             id: 102, 
-            name: "One Piece", 
+            name: "One-Piece Dress", 
             category: "women",
             image:p2_img,
             new_price: 60.0,
@@ -23,7 +23,7 @@ let data_product= [
         },
         { 
             id: 103,
-            name: "Salwar suit", 
+            name: "Salwar Suit", 
             category: "women", 
             image:p3_avif,
             new_price: 75.0,
