@@ -46,8 +46,18 @@ function Navbar() {
   };
 
   const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+    setMobileMenuOpen(prev => !prev);
   };
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
 
   return (
     <div className='navbar'>
@@ -56,11 +66,18 @@ function Navbar() {
         <p>Shopify</p>
       </div>
       
-      <div className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu}>
+      <div className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu} aria-label="Toggle menu" role="button" aria-expanded={mobileMenuOpen}>
         <span></span>
         <span></span>
         <span></span>
       </div>
+
+      {/* Overlay for mobile menu */}
+      <div 
+        className={`nav-overlay ${mobileMenuOpen ? 'active' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden={!mobileMenuOpen}
+      />
 
       <ul className={`nav-menu ${mobileMenuOpen ? 'active' : ''}`}>
         <li onClick={() => { setMenu("home"); setMobileMenuOpen(false); }}>

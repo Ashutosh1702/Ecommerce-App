@@ -103,18 +103,36 @@
         flex-direction: column;
         position: fixed;
         top: 0;
-        right: -100%;
+        left: 0;
         height: 100vh;
-        width: 70%;
+        width: 75%;
+        max-width: 320px;
         background: #fff;
         padding-top: 80px;
-        gap: 20px;
-        box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-        transition: none; /* open instantly on mobile */
-        z-index: 1050;
+        gap: 12px;
+        box-shadow: -4px 0 12px rgba(0,0,0,0.14);
+        transform: translateX(-105%);
+        transition: transform 0.2s ease-out; /* fast, reliable */
+        z-index: 1051; /* above overlay */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     .nav-menu.active {
-        right: 0;
+        transform: translateX(0);
+    }
+    /* Dark overlay behind the menu */
+    .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease-in-out;
+        z-index: 1050;
+    }
+    .nav-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
     }
     /* Cleaner, simpler mobile menu items */
     .nav-menu li {
