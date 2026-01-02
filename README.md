@@ -188,3 +188,13 @@ For support and questions, please open an issue in the repository.
 ---
 
 **Happy Shopping! 🛒✨**
+
+
+
+<!-- useEffect(()=>{
+useEffect is run on every render
+},[]) -->
+
+<!-- useEffect(()=>{
+
+},[]) -->

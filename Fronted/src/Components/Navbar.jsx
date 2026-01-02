@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import "./Navbar.css"
 import logo from "../assets/images/images.png"
 import cart_icon from "../assets/images/cart_icon.png"
+import SearchBar from './Searchbar/SearchBarComponent'
 import { Link, useNavigate } from 'react-router-dom'
 import { ShopContext } from './Context/ShopContext'
 
@@ -64,6 +65,10 @@ function Navbar() {
       <div className="nav-logo">
         <img src={logo} alt="" height="60px" />
         <p>Shopify</p>
+      </div>
+      
+      <div className="nav-search">
+        <SearchBar />
       </div>
       
       <div className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu} aria-label="Toggle menu" role="button" aria-expanded={mobileMenuOpen}>
