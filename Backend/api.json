@@ -29,6 +29,12 @@
       "username": "shyam",
       "email": "shyam@gmail.com",
       "password": "123456789"
+    },
+    {
+      "id": "1775927464300",
+      "username": "Ashutosh Kumar",
+      "email": "ashucreater06@gmail.com",
+      "password": "123456789"
     }
   ],
   "orders": [

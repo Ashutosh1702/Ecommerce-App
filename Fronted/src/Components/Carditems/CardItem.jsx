@@ -24,45 +24,54 @@ const CartItem = () => {
 
   const handlePaymentComplete = async (paymentMethod = "credit-card") => {
     try {
-      // Get current user data
-      const userData = localStorage.getItem("user");
-      const user = userData ? JSON.parse(userData) : null;
+      // Get auth token
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        alert("Please login to place an order");
+        navigate("/login");
+        return;
+      }
 
-      // Get cart items with details
+      // Get cart items with details matching backend schema
       const cartItemsWithDetails = all_product
         .filter((item) => cartItems[item.id] > 0)
         .map((item) => ({
-          id: item.id,
+          product: item.id, // Need product ID ref for mongodb
           name: item.name,
           image: item.image,
           price: item.new_price,
-          quantity: cartItems[item.id],
-          total: item.new_price * cartItems[item.id],
+          qty: cartItems[item.id]
         }));
 
-      // Create order object
+      // Create order object matching backend Mongoose schema
       const order = {
-        id: Date.now().toString(),
-        userId: user ? user.id : "guest",
-        userEmail: user ? user.email : "guest@example.com",
-        userName: user ? user.username : "Guest User",
-        items: cartItemsWithDetails,
-        totalAmount: getTotalCartAmount(),
+        orderItems: cartItemsWithDetails,
+        totalPrice: getTotalCartAmount(),
+        itemsPrice: getTotalCartAmount(),
+        shippingPrice: 0,
+        taxPrice: 0,
         paymentMethod: paymentMethod,
-        orderDate: new Date().toISOString(),
-        status: "completed",
+        shippingAddress: {
+          address: "Provide via Form",
+          city: "Provide via Form",
+          postalCode: "00000",
+          country: "Provide via Form"
+        }
       };
 
-      // Save order to JSON server
-      const response = await fetch("http://localhost:3001/orders", {
+      // Save order to our Express backend
+      const response = await fetch("http://localhost:5000/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(order),
       });
 
       if (response.ok) {
+        const resultData = await response.json();
+        
         // Clear the cart after successful payment and order saving
         clearCart();
 
@@ -72,9 +81,9 @@ const CartItem = () => {
         // Show detailed success message
         alert(
           `🎉 Payment Successful!\n\nOrder ID: ${
-            order.id
-          }\nTotal: $${order.totalAmount.toFixed(2)}\nItems: ${
-            order.items.length
+            resultData._id
+          }\nTotal: $${resultData.totalPrice.toFixed(2)}\nItems: ${
+            resultData.orderItems.length
           }\n\nThank you for your purchase! Redirecting to home page...`
         );
 
@@ -83,7 +92,8 @@ const CartItem = () => {
           navigate("/");
         }, 2000); // 2 second delay to let user read the success message
       } else {
-        throw new Error("Failed to save order");
+        const errData = await response.json();
+        throw new Error(errData.message || "Failed to save order");
       }
     } catch (error) {
       console.error("Order processing error:", error);

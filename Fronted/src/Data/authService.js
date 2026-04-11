@@ -18,7 +18,7 @@ export const authService = {
             }
 
             const data = await response.json();
-            localStorage.setItem('user', JSON.stringify(data));
+            localStorage.setItem('auth_token', data.token);
             return data;
         } catch (error) {
             console.error('Login error:', error);
@@ -39,19 +39,18 @@ export const authService = {
                 throw new Error('Logout failed');
             }
 
-            localStorage.removeItem('user');
+            localStorage.removeItem('auth_token');
         } catch (error) {
             console.error('Logout error:', error);
             throw error;
         }
     },
 
-    getCurrentUser() {
-        const user = localStorage.getItem('user');
-        return user ? JSON.parse(user) : null;
+    getCurrentToken() {
+        return localStorage.getItem('auth_token');
     },
 
     isAuthenticated() {
-        return !!this.getCurrentUser();
+        return !!this.getCurrentToken();
     }
 }; 

@@ -23,33 +23,23 @@ const LoginSignup = () => {
       setLoading(true);
       setError("");
       
-      // Fetch users from JSON server
-      const response = await fetch("http://localhost:3001/users");
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email, password: formData.password })
+      });
+      
+      const data = await response.json();
       
       if (!response.ok) {
-        throw new Error("Cannot connect to the server");
-      }
-      
-      const users = await response.json();
-      
-      // Find user with matching email and password
-      const user = users.find(u => 
-        u.email === formData.email && u.password === formData.password
-      );
-      
-      if (!user) {
-        throw new Error("Invalid email or password");
+        throw new Error(data.message || "Invalid email or password");
       }
 
-      // Store user data in localStorage
-      localStorage.setItem("user", JSON.stringify({
-        id: user.id,
-        username: user.username,
-        email: user.email
-      }));
+      // Store ONLY the JWT token in localStorage, not the sensitive info
+      localStorage.setItem("auth_token", data.token);
       
       // Show welcome message
-      alert(`Welcome back, ${user.username}!`);
+      alert(`Welcome back, ${data.name}!`);
       
       // Redirect to home page
       navigate("/");
@@ -58,7 +48,7 @@ const LoginSignup = () => {
       window.location.reload();
     } catch (error) {
       if (error.message === "Failed to fetch") {
-        setError("Cannot connect to the server. Please make sure the backend server is running on port 3001.");
+        setError("Cannot connect to the server. Please make sure the backend server error is running on port 5000.");
       } else {
         setError(error.message || "Failed to login. Please try again.");
       }
@@ -73,51 +63,36 @@ const LoginSignup = () => {
       setLoading(true);
       setError("");
 
-      // First check if user already exists
-      const checkResponse = await fetch("http://localhost:3001/users");
-      if (!checkResponse.ok) {
-        throw new Error("Cannot connect to the server");
-      }
-      
-      const existingUsers = await checkResponse.json();
-      const userExists = existingUsers.find(u => u.email === formData.email);
-      
-      if (userExists) {
-        throw new Error("User with this email already exists");
-      }
-
-      // Create new user
-      const newUser = {
-        id: Date.now().toString(),
-        username: formData.username,
-        email: formData.email,
-        password: formData.password
-      };
-
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("http://localhost:5000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newUser),
+        body: JSON.stringify({
+          name: formData.username,
+          email: formData.email,
+          password: formData.password
+        }),
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to create account");
-      }
 
       const data = await response.json();
 
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to create account");
+      }
+
       // Show success message with username
-      alert(`Welcome ${data.username}! Your account has been created successfully.`);
+      alert(`Welcome ${data.name}! Your account has been created successfully.`);
       
-      // Switch to login state after successful signup
-      setState("Login");
-      setFormData({ username: "", email: "", password: "" }); // Clear all fields
-      setError("");
+      // Storing token as we automatically login
+      localStorage.setItem("auth_token", data.token);
+
+      // Redirect to home page
+      navigate("/");
+      window.location.reload();
     } catch (error) {
       if (error.message === "Failed to fetch") {
-        setError("Cannot connect to the server. Please make sure the backend server is running on port 3001.");
+        setError("Cannot connect to the server. Please make sure the backend server is running on port 5000.");
       } else {
         setError(error.message || "Failed to sign up. Please try again.");
       }

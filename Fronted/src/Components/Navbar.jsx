@@ -15,10 +15,28 @@ function Navbar() {
 
   useEffect(() => {
     // Check if user is logged in
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
+    const fetchProfile = async () => {
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        try {
+          const res = await fetch("http://localhost:5000/api/users/profile", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setUser({ username: data.name, email: data.email, id: data._id });
+          } else {
+            localStorage.removeItem('auth_token');
+            setUser(null);
+          }
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+        }
+      }
+    };
+    fetchProfile();
   }, []);
 
   useEffect(() => {
@@ -28,8 +46,8 @@ function Navbar() {
 
   const handleLogout = () => {
     try {
-      // Remove user data from localStorage
-      localStorage.removeItem('user');
+      // Remove authentication token from localStorage
+      localStorage.removeItem('auth_token');
       setUser(null);
       
       // Show logout message
